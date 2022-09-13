@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.issue.pull_request }}
     outputs:
-      ref: ${{ steps.get-pr.outputs.result.head.ref }}
+      ref: ${{ steps.get-pr.outputs.result }}
       sha: ${{ steps.get-pr.outputs.result.head.sha }}
     steps:
       - uses: actions/checkout@v3
