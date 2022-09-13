@@ -25,5 +25,5 @@ jobs:
     runs-on: ubuntu-latest
     needs: pr
     steps:
-      - run: echo "Ref is ${{ needs.pr.outputs.ref }}"
+      - run: echo "Ref is ${{ needs.pr.outputs }}"
       - run: echo "SHA is ${{ needs.pr.outputs.sha }}"
