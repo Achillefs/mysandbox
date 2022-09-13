@@ -27,9 +27,9 @@ jobs:
     steps:
       - uses: actions/github-script@v6
         env:
-          OUTPUT: ${{ needs.pr.outputs }}
+          OUTPUT: ${{ fromJSON(needs.pr.outputs) }}
         with:
           script: |
             console.log($OUTPUT)
-      - run: echo "Ref is ${{ needs.pr.outputs }}"
+      - run: echo "Ref is ${{ needs.pr.outputs.ref }}"
       - run: echo "SHA is ${{ needs.pr.outputs.sha }}"
