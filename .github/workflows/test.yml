@@ -12,9 +12,6 @@ jobs:
     name: Retrieve current PR context
     runs-on: ubuntu-latest
     if: ${{ github.event.issue.pull_request }}
-    outputs:
-      ref: ${{ steps.get-pr.outputs.result }}
-      sha: ${{ steps.get-pr.outputs.result.head.sha }}
     steps:
       - uses: actions/checkout@v3
       - id: get-pr
@@ -25,11 +22,5 @@ jobs:
     runs-on: ubuntu-latest
     needs: pr
     steps:
-      - uses: actions/github-script@v6
-        env:
-          OUTPUT: ${{ fromJSON(needs.pr.outputs) }}
-        with:
-          script: |
-            console.log($OUTPUT)
-      - run: echo "Ref is ${{ needs.pr.outputs.ref }}"
-      - run: echo "SHA is ${{ needs.pr.outputs.sha }}"
+      - run: echo "Ref is $RELATED_REF"
+      - run: echo "SHA is $RELATED_SHA"
