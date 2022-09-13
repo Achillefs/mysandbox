@@ -16,8 +16,8 @@ runs:
           try {
             const result = await github.rest.pulls.get(request)
             console.log(result.data)
-            core.exportVariable('RELATED_REF', results.data.head.ref)
-            core.exportVariable('RELATED_SHA', results.data.head.ref)
+            core.exportVariable('RELATED_REF', result.data.head.ref)
+            core.exportVariable('RELATED_SHA', result.data.head.ref)
           } catch (err) {
             core.setFailed(`Request failed with error ${err}`)
           }
