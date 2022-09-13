@@ -25,5 +25,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: pr
     steps:
+      - uses: actions/github-script@v6
+        env:
+          OUTPUT: ${{ needs.pr.outputs }}
+        with:
+          script: |
+            console.log($OUTPUT)
       - run: echo "Ref is ${{ needs.pr.outputs }}"
       - run: echo "SHA is ${{ needs.pr.outputs.sha }}"
