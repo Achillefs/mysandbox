@@ -1,0 +1,28 @@
+name: Testing Comment hook
+
+on:
+  issue_comment:
+    types: [ created ]
+
+defaults:
+  run:
+    shell: bash
+jobs:
+  pr:
+    name: Retrieve current PR context
+    runs-on: ubuntu-latest
+    if: ${{ github.event.issue.pull_request }}
+    outputs:
+      ref: ${{ steps.get-pr.outputs.result.head.ref }}
+      sha: ${{ steps.get-pr.outputs.result.head.sha }}
+    steps:
+      - uses: actions/checkout@v3
+      - id: get-pr
+        uses: ./.github/actions/get-pr
+
+  validate:
+    name: Validate PR results
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Ref is ${{ needs.pr.outputs.ref }}"
+      - run: echo "SHA is ${{ needs.pr.outputs.sha }}"
