@@ -1,7 +1,16 @@
 name: Get related PR object
 
+outputs:
+  ref:
+    description: The name of the current PR
+    value: ${{ steps.get-pr.outputs.ref }}
+  sha:
+    description: The current commit
+    value: ${{ steps.get-pr.outputs.sha }}
+  
 runs:
   using: composite
+
   steps:
     - uses: actions/github-script@v6
       id: get-pr
@@ -15,7 +24,6 @@ runs:
           core.info(`Getting PR #${request.pull_number} from ${request.owner}/${request.repo}`)
           try {
             const result = await github.rest.pulls.get(request)
-            console.log(result.data)
             core.setOutput('ref', result.data.head.ref)
             core.setOutput('sha', result.data.head.sha)
           } catch (err) {
